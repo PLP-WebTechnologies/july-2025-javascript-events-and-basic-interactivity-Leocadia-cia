@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive JS Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>JavaScript Interactive Elements</h1>
+
+    <!-- Part 1: Event Handling -->
+    <button id="clickMeBtn">Click Me!</button>
+    <p id="clickMessage"></p>
+
+    <!-- Part 2: Interactive Features -->
+    <section>
+        <h2>Light/Dark Mode Toggle</h2>
+        <button id="themeToggleBtn">Toggle Theme</button>
+    </section>
+
+    <section>
+        <h2>Counter Game</h2>
+        <button id="increaseCounterBtn">Increase</button>
+        <p>Counter: <span id="counterValue">0</span></p>
+    </section>
+
+    <!-- Part 3: Form Validation -->
+    <section>
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            <label>Name: <input type="text" id="name"></label><br>
+            <label>Email: <input type="text" id="email"></label><br>
+            <label>Password: <input type="password" id="password"></label><br>
+            <button type="submit">Register</button>
+        </form>
+        <p id="formMessage"></p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: white;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 15px;
+}
+
+p {
+    margin-top: 10px;
+}
+// ================= Part 1: Event Handling =================
+document.getElementById("clickMeBtn").addEventListener("click", function() {
+    document.getElementById("clickMessage").textContent = "Button clicked! 🎉";
+});
+
+// ================= Part 2: Interactive Features =================
+
+// Light/Dark Mode Toggle
+document.getElementById("themeToggleBtn").addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+});
+
+// Counter Game
+let counter = 0;
+document.getElementById("increaseCounterBtn").addEventListener("click", function() {
+    counter++;
+    document.getElementById("counterValue").textContent = counter;
+});
+
+// ================= Part 3: Form Validation =================
+document.getElementById("registrationForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Stop form from submitting
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value;
+
+    let message = "";
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (name.length < 2) {
+        message = "Name must be at least 2 characters long.";
+    } else if (!emailPattern.test(email)) {
+        message = "Please enter a valid email address.";
+    } else if (password.length < 6) {
+        message = "Password must be at least 6 characters long.";
+    } else {
+        message = "✅ Registration successful!";
+    }
+
+    document.getElementById("formMessage").textContent = message;
+});
